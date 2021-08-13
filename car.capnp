@@ -487,7 +487,8 @@ struct CarParams {
   }
 
   struct LateralModelTuning {
-    useRates @0 :Bool;
+    name @0 :Text;
+    useRates @1 :Bool;
   }
 
   enum SafetyModel {
