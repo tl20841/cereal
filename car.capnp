@@ -488,7 +488,7 @@ struct CarParams {
 
   struct LateralModelTuning {
     name @0 :Text;
-    multiplier @1 :Bool;
+    multiplier @1 :Float32;
     useRates @2 :Bool;
   }
 
