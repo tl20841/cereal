@@ -68,6 +68,9 @@ services = {
   "laneSpeedButton": (False, 0.),
   "dynamicCameraOffset": (False, 0.),
   "modelLongButton": (False, 0.),
+
+  # debug
+  "testJoystick": (False, 0.),
 }
 service_list = {name: Service(new_port(idx), *vals) for  # type: ignore
                 idx, (name, vals) in enumerate(services.items())}
