@@ -414,7 +414,7 @@ struct CarParams {
     pid @26 :LateralPIDTuning;
     indi @27 :LateralINDITuning;
     lqr @40 :LateralLQRTuning;
-    model @59 :LateralModelTuning;
+    model @62 :LateralModelTuning;
   }
 
   steerLimitAlert @28 :Bool;
@@ -446,7 +446,7 @@ struct CarParams {
   communityFeature @46: Bool;  # true if a community maintained feature is detected
   fingerprintSource @49: FingerprintSource;
   networkLocation @50 :NetworkLocation;  # Where Panda/C2 is integrated into the car's CAN network
-  hasZss @60: Bool;  # true if ZSS is detected
+  hasZss @63: Bool;  # true if ZSS is detected
 
   struct LateralParams {
     torqueBP @0 :List(Int32);
