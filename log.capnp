@@ -871,7 +871,7 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   dPathPoints @20 :List(Float32);
   dProb @21 :Float32;
 
-  cameraOffset @29 :Float32;
+  cameraOffset @30 :Float32;
 
   mpcSolutionValid @9 :Bool;
   desire @17 :Desire;
@@ -1519,12 +1519,12 @@ struct Event {
     deviceState @6 :DeviceState;
     logMessage @18 :Text;
 
-    dynamicFollowData @82 :DynamicFollowData;
-    dynamicFollowButton @83 :DynamicFollowButton;
-    laneSpeed @84 :LaneSpeed;
-    laneSpeedButton @85 :LaneSpeedButton;
-    dynamicCameraOffset @86 :DynamicCameraOffset;
-    modelLongButton @87 :ModelLongButton;
+    dynamicFollowData @84 :DynamicFollowData;
+    dynamicFollowButton @85 :DynamicFollowButton;
+    laneSpeed @86 :LaneSpeed;
+    laneSpeedButton @87 :LaneSpeedButton;
+    dynamicCameraOffset @88 :DynamicCameraOffset;
+    modelLongButton @89 :ModelLongButton;
 
     # navigation
     navInstruction @82 :NavInstruction;
