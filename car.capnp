@@ -1,10 +1,6 @@
 using Cxx = import "./include/c++.capnp";
 $Cxx.namespace("cereal");
 
-using Java = import "./include/java.capnp";
-$Java.package("ai.comma.openpilot.cereal");
-$Java.outerClassname("Car");
-
 @0x8e2af1e708af8b8d;
 
 # ******* events causing controls state machine transition *******
@@ -88,7 +84,6 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     startupNoCar @76;
     startupNoControl @77;
     startupMaster @78;
-    startupFuzzyFingerprint @97;
     startupNoFw @104;
     startupZss @106;
     fcw @79;
@@ -131,6 +126,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     neosUpdateRequiredDEPRECATED @88;
     modelLagWarningDEPRECATED @93;
     startupOneplusDEPRECATED @82;
+    startupFuzzyFingerprintDEPRECATED @97;
   }
 }
 
@@ -380,14 +376,11 @@ struct CarParams {
   enableDsu @5 :Bool;        # driving support unit
   enableApgs @6 :Bool;       # advanced parking guidance system
   enableBsm @56 :Bool;       # blind spot monitoring
-  hasStockCamera @57 :Bool;  # factory LKAS/LDW camera is present
 
   minEnableSpeed @7 :Float32;
   minSteerSpeed @8 :Float32;
   maxSteeringAngleDeg @54 :Float32;
-  safetyModel @9 :SafetyModel;
-  safetyModelPassive @42 :SafetyModel = silent;
-  safetyParam @10 :Int16;
+  safetyConfigs @62 :List(SafetyConfig);
 
   steerMaxBP @11 :List(Float32);
   steerMaxV @12 :List(Float32);
@@ -448,6 +441,11 @@ struct CarParams {
   networkLocation @50 :NetworkLocation;  # Where Panda/C2 is integrated into the car's CAN network
   hasZss @63: Bool;  # true if ZSS is detected
   smartDsu @64: Bool;  # true if sDSU is detected
+
+  struct SafetyConfig {
+    safetyModel @0 :SafetyModel;
+    safetyParam @1 :Int16;
+  }
 
   struct LateralParams {
     torqueBP @0 :List(Int32);
@@ -598,4 +596,8 @@ struct CarParams {
 
   enableCameraDEPRECATED @4 :Bool;
   isPandaBlackDEPRECATED @39: Bool;
+  hasStockCameraDEPRECATED @57 :Bool;
+  safetyParamDEPRECATED @10 :Int16;
+  safetyModelDEPRECATED @9 :SafetyModel;
+  safetyModelPassiveDEPRECATED @42 :SafetyModel = silent;
 }
