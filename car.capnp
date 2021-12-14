@@ -449,6 +449,8 @@ struct CarParams {
   hasZss @63: Bool;  # true if ZSS is detected
   smartDsu @64: Bool;  # true if sDSU is detected
 
+  wheelSpeedFactor @63 :Float32; # Multiplier on wheels speeds to computer actual speeds
+
   struct SafetyConfig {
     safetyModel @0 :SafetyModel;
     safetyParam @1 :Int16;
