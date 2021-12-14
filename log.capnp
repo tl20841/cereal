@@ -1527,12 +1527,12 @@ struct Event {
     deviceState @6 :DeviceState;
     logMessage @18 :Text;
 
-    dynamicFollowData @84 :DynamicFollowData;
-    dynamicFollowButton @85 :DynamicFollowButton;
-    laneSpeed @86 :LaneSpeed;
-    laneSpeedButton @87 :LaneSpeedButton;
-    dynamicCameraOffset @88 :DynamicCameraOffset;
-    modelLongButton @89 :ModelLongButton;
+    dynamicFollowData @85 :DynamicFollowData;
+    dynamicFollowButton @86 :DynamicFollowButton;
+    laneSpeed @87 :LaneSpeed;
+    laneSpeedButton @88 :LaneSpeedButton;
+    dynamicCameraOffset @89 :DynamicCameraOffset;
+    modelLongButton @90 :ModelLongButton;
 
     # navigation
     navInstruction @82 :NavInstruction;
