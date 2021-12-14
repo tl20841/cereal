@@ -64,6 +64,7 @@ services = {
   "uploaderState": (True, 0., 1),
   "navInstruction": (True, 0.),
   "navRoute": (True, 0.),
+  "navThumbnail": (True, 0.),
 
   "dynamicFollowData": (False, 20.),
   "dynamicFollowButton": (False, 0.),
