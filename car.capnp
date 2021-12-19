@@ -360,9 +360,10 @@ struct CarControl {
       warningSoft @4;
       warningImmediate @5;
 
-      prompt @6;
+      prompt @6;  # two tones
       promptRepeat @7;
       promptDistracted @8;
+      promptSingle @9;  # one tone
     }
   }
 
