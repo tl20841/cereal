@@ -292,6 +292,7 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   lastAthenaPingTime @32 :UInt64;
 
   started @11 :Bool;
+  startedSentry @41 :Bool;
   startedMonoTime @13 :UInt64;
 
   # system utilization
@@ -375,6 +376,11 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   batteryStatusDEPRECATED @9 :Text;
   batteryVoltageDEPRECATED @16 :Int32;
   batteryTempCDEPRECATED @29 :Float32;
+}
+
+struct SentryState {
+  started @0 :Bool;
+  armed @1 :Bool;
 }
 
 struct PandaState @0xa7649e2575e4591e {
@@ -1540,6 +1546,7 @@ struct Event {
     laneSpeedButton @89 :LaneSpeedButton;
     dynamicCameraOffset @90 :DynamicCameraOffset;
     modelLongButton @91 :ModelLongButton;
+    sentryState @92 :SentryState;
 
     # navigation
     navInstruction @82 :NavInstruction;
