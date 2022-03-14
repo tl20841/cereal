@@ -894,7 +894,7 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   dPathPoints @20 :List(Float32);
   dProb @21 :Float32;
 
-  cameraOffset @30 :Float32;
+  cameraOffset @31 :Float32;
 
   mpcSolutionValid @9 :Bool;
   desire @17 :Desire;
