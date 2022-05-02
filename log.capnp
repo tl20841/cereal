@@ -1876,13 +1876,13 @@ struct Event {
     logMessage @18 :Text;
     errorLogMessage @85 :Text;
 
-    dynamicFollowData @90 :DynamicFollowData;
-    dynamicFollowButton @91 :DynamicFollowButton;
-    laneSpeed @92 :LaneSpeed;
-    laneSpeedButton @93 :LaneSpeedButton;
-    dynamicCameraOffset @94 :DynamicCameraOffset;
-    modelLongButton @95 :ModelLongButton;
-    sentryState @96 :SentryState;
+    dynamicFollowData @91 :DynamicFollowData;
+    dynamicFollowButton @92 :DynamicFollowButton;
+    laneSpeed @93 :LaneSpeed;
+    laneSpeedButton @94 :LaneSpeedButton;
+    dynamicCameraOffset @95 :DynamicCameraOffset;
+    modelLongButton @96 :ModelLongButton;
+    sentryState @97 :SentryState;
 
     # navigation
     navInstruction @82 :NavInstruction;

@@ -185,8 +185,8 @@ struct CarState {
 
   # gear
   gearShifter @14 :GearShifter;
-  sportOn @41 :Bool;
-  econOn @42 :Bool;
+  sportOn @42 :Bool;
+  econOn @43 :Bool;
 
   # button presses
   buttonEvents @11 :List(ButtonEvent);
