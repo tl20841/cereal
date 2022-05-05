@@ -493,9 +493,9 @@ struct CarParams {
   }
 
   struct LateralPIDTuning {
-    kpBP @0 :List(Float32);
+    kpBP @0 :List(Float32) = [0.];
     kpV @1 :List(Float32);
-    kiBP @2 :List(Float32);
+    kiBP @2 :List(Float32) = [0.];
     kiV @3 :List(Float32);
     kdBP @4 :List(Float32) = [0.];
     kdV @5 :List(Float32) = [0.];
