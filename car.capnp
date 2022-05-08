@@ -179,6 +179,7 @@ struct CarState {
   stockAeb @30 :Bool;
   stockFcw @31 :Bool;
   espDisabled @32 :Bool;
+  accFaulted @42 :Bool;
 
   # cruise state
   cruiseState @10 :CruiseState;
@@ -209,6 +210,7 @@ struct CarState {
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
   fuelGauge @41 :Float32; # battery or fuel tank level from 0.0 to 1.0
+  charging @43 :Bool;
 
   struct WheelSpeeds {
     # optional wheel speeds
@@ -483,8 +485,9 @@ struct CarParams {
 
   struct SafetyConfig {
     safetyModel @0 :SafetyModel;
-    safetyParam @2 :UInt32;
+    safetyParam @3 :UInt16;
     safetyParamDEPRECATED @1 :Int16;
+    safetyParam2DEPRECATED @2 :UInt32;
   }
 
   struct LateralParams {
