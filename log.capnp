@@ -1094,11 +1094,14 @@ struct ProcLog {
 }
 
 struct GnssMeasurements {
-  positionECEF @0 :List(Float64);
-  velocityECEF @1 :List(Float64);
+  ubloxMonoTime @0 :UInt64;
+  correctedMeasurements @1 :List(CorrectedMeasurement);
+
+  positionECEF @2 :LiveLocationKalman.Measurement;
+  velocityECEF @3 :LiveLocationKalman.Measurement;
+  # Represents heading in degrees.
+  bearingDeg @4 :LiveLocationKalman.Measurement;
   # Todo sync this with timing pulse of ublox
-  ubloxMonoTime @2 :UInt64;
-  correctedMeasurements @3 :List(CorrectedMeasurement);
 
   struct CorrectedMeasurement {
     constellationId @0 :ConstellationId;
@@ -1827,6 +1830,9 @@ struct NavInstruction {
   lanes @8 :List(Lane);
   showFull @9 :Bool;
 
+  speedLimit @10 :Float32; # m/s
+  speedLimitSign @11 :SpeedLimitSign;
+
   struct Lane {
     directions @0 :List(Direction);
     active @1 :Bool;
@@ -1840,6 +1846,10 @@ struct NavInstruction {
     straight @3;
   }
 
+  enum SpeedLimitSign {
+    mutcd @0; # US Style
+    vienna @1; # EU Style
+    }
 }
 
 struct NavRoute {
@@ -1855,6 +1865,7 @@ struct EncodeData {
   idx @0 :EncodeIndex;
   data @1 :Data;
   header @2 :Data;
+  unixTimestampNanos @3 :UInt64;
 }
 
 struct Event {
