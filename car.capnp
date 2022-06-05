@@ -451,7 +451,7 @@ struct CarParams {
     indi @27 :LateralINDITuning;
     lqr @40 :LateralLQRTuning;
     torque @67 :LateralTorqueTuning;
-    model @68 :LateralModelTuning;
+    model @69 :LateralModelTuning;
   }
 
   steerLimitAlert @28 :Bool;
