@@ -298,7 +298,7 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   lastAthenaPingTime @32 :UInt64;
 
   started @11 :Bool;
-  startedSentry @42 :Bool;
+  startedSentry @43 :Bool;
   startedMonoTime @13 :UInt64;
 
   # system utilization
@@ -600,7 +600,7 @@ struct ControlsState @0x97ff69c53601abf1 {
     angleState @58 :LateralAngleState;
     debugState @59 :LateralDebugState;
     torqueState @60 :LateralTorqueState;
-    modelState @63 :LateralModelState;
+    modelState @64 :LateralModelState;
   }
 
   enum OpenpilotState @0xdbe58b96d2d1ac61 {
@@ -1978,13 +1978,13 @@ struct Event {
     logMessage @18 :Text;
     errorLogMessage @85 :Text;
 
-    dynamicFollowData @92 :DynamicFollowData;
-    dynamicFollowButton @93 :DynamicFollowButton;
-    laneSpeed @94 :LaneSpeed;
-    laneSpeedButton @95 :LaneSpeedButton;
-    dynamicCameraOffset @96 :DynamicCameraOffset;
-    modelLongButton @97 :ModelLongButton;
-    sentryState @98 :SentryState;
+    dynamicFollowData @93 :DynamicFollowData;
+    dynamicFollowButton @94 :DynamicFollowButton;
+    laneSpeed @95 :LaneSpeed;
+    laneSpeedButton @96 :LaneSpeedButton;
+    dynamicCameraOffset @97 :DynamicCameraOffset;
+    modelLongButton @98 :ModelLongButton;
+    sentryState @99 :SentryState;
 
     # navigation
     navInstruction @82 :NavInstruction;
