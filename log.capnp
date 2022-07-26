@@ -315,6 +315,7 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   offroadPowerUsageUwh @23 :UInt32;
   carBatteryCapacityUwh @25 :UInt32;
   powerDrawW @40 :Float32;
+  somPowerDrawW @42 :Float32;
 
   # device thermals
   cpuTempC @26 :List(Float32);
@@ -568,7 +569,8 @@ struct ControlsState @0x97ff69c53601abf1 {
   longControlState @30 :Car.CarControl.Actuators.LongControlState;
   vPid @2 :Float32;
   vTargetLead @3 :Float32;
-  vCruise @22 :Float32;
+  vCruise @22 :Float32;  # actual set speed
+  vCruiseCluster @63 :Float32;  # set speed to display in the UI
   upAccelCmd @4 :Float32;
   uiAccelCmd @5 :Float32;
   ufAccelCmd @33 :Float32;
@@ -1095,12 +1097,15 @@ struct ProcLog {
 
 struct GnssMeasurements {
   ubloxMonoTime @0 :UInt64;
-  correctedMeasurements @1 :List(CorrectedMeasurement);
+  gpsWeek @1 :Int16;
+  gpsTimeOfWeek @2 :Float64;
 
-  positionECEF @2 :LiveLocationKalman.Measurement;
-  velocityECEF @3 :LiveLocationKalman.Measurement;
-  # Represents heading in degrees.
-  bearingDeg @4 :LiveLocationKalman.Measurement;
+  correctedMeasurements @3 :List(CorrectedMeasurement);
+
+  positionECEF @4 :LiveLocationKalman.Measurement;
+  velocityECEF @5 :LiveLocationKalman.Measurement;
+  # Used for debugging:
+  positionFixECEF @6 :LiveLocationKalman.Measurement;
   # Todo sync this with timing pulse of ublox
 
   struct CorrectedMeasurement {
@@ -1115,6 +1120,14 @@ struct GnssMeasurements {
     # Satellite position and velocity [x,y,z]
     satPos @7 :List(Float64);
     satVel @8 :List(Float64);
+    ephemerisSource @9 :EphemerisSource;
+  }
+
+  struct EphemerisSource {
+    type @0 :EphemerisSourceType;
+    # first epoch in file:
+    gpsWeek @1 :Int16; # -1 if Nav
+    gpsTimeOfWeek @2 :Int32; # -1 if Nav. Integer for seconds is good enough for logs.
   }
 
   enum ConstellationId {
@@ -1126,6 +1139,13 @@ struct GnssMeasurements {
       imes @4;
       qznss @5;
       glonass @6;
+  }
+
+  enum EphemerisSourceType {
+    nav @0;
+    # Different ultra-rapid files:
+    nasaUltraRapid @1;
+    glonassIacUltraRapid @2;
   }
 }
 
@@ -1631,7 +1651,36 @@ struct Joystick {
   buttons @1: List(Bool);
 }
 
-struct DriverState {
+struct DriverStateV2 {
+  frameId @0 :UInt32;
+  modelExecutionTime @1 :Float32;
+  dspExecutionTime @2 :Float32;
+  rawPredictions @3 :Data;
+
+  poorVisionProb @4 :Float32;
+  wheelOnRightProb @5 :Float32;
+
+  leftDriverData @6 :DriverData;
+  rightDriverData @7 :DriverData;
+
+  struct DriverData {
+    faceOrientation @0 :List(Float32);
+    faceOrientationStd @1 :List(Float32);
+    facePosition @2 :List(Float32);
+    facePositionStd @3 :List(Float32);
+    faceProb @4 :Float32;
+    leftEyeProb @5 :Float32;
+    rightEyeProb @6 :Float32;
+    leftBlinkProb @7 :Float32;
+    rightBlinkProb @8 :Float32;
+    sunglassesProb @9 :Float32;
+    occludedProb @10 :Float32;
+    readyProb @11 :List(Float32);
+    notReadyProb @12 :List(Float32);
+  }
+}
+
+struct DriverStateDEPRECATED @0xb83c6cc593ed0a00 {
   frameId @0 :UInt32;
   modelExecutionTime @14 :Float32;
   dspExecutionTime @16 :Float32;
@@ -1679,8 +1728,8 @@ struct DriverMonitoringState @0xb83cda094a1da284 {
   isLowStd @13 :Bool;
   hiStdCount @14 :UInt32;
   isActiveMode @16 :Bool;
+  isRHD @4 :Bool;
 
-  isRHDDEPRECATED @4 :Bool;
   isPreviewDEPRECATED @15 :Bool;
   rhdCheckedDEPRECATED @5 :Bool;
 }
@@ -1900,7 +1949,6 @@ struct Event {
     qcomGnss @31 :QcomGnss;
     gpsLocationExternal @48 :GpsLocationData;
     gnssMeasurements @91 :GnssMeasurements;
-    driverState @59 :DriverState;
     liveParameters @61 :LiveParametersData;
     cameraOdometry @63 :CameraOdometry;
     thumbnail @66: Thumbnail;
@@ -1909,6 +1957,7 @@ struct Event {
     driverMonitoringState @71: DriverMonitoringState;
     liveLocationKalman @72 :LiveLocationKalman;
     modelV2 @75 :ModelDataV2;
+    driverStateV2 @92 :DriverStateV2;
 
     # camera stuff, each camera state has a matching encode idx
     roadCameraState @2 :FrameData;
@@ -1986,5 +2035,6 @@ struct Event {
     gpsLocationDEPRECATED @21 :GpsLocationData;
     uiLayoutStateDEPRECATED @57 :Legacy.UiLayoutState;
     pandaStateDEPRECATED @12 :PandaState;
+    driverStateDEPRECATED @59 :DriverStateDEPRECATED;
   }
 }

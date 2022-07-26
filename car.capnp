@@ -149,9 +149,11 @@ struct CarState {
   canTimeout @40 :Bool;     # CAN bus dropped out
 
   # car speed
-  vEgo @1 :Float32;         # best estimate of speed
-  aEgo @16 :Float32;        # best estimate of acceleration
-  vEgoRaw @17 :Float32;     # unfiltered speed from CAN sensors
+  vEgo @1 :Float32;          # best estimate of speed
+  aEgo @16 :Float32;         # best estimate of acceleration
+  vEgoRaw @17 :Float32;      # unfiltered speed from CAN sensors
+  vEgoCluster @44 :Float32;  # best estimate of speed shown on car's instrument cluster, used for UI
+
   yawRate @22 :Float32;     # best estimate of yaw rate
   standstill @18 :Bool;
   wheelSpeeds @2 :WheelSpeeds;
@@ -173,7 +175,6 @@ struct CarState {
   steeringTorque @8 :Float32;      # TODO: standardize units
   steeringTorqueEps @27 :Float32;  # TODO: standardize units
   steeringPressed @9 :Bool;        # if the user is using the steering wheel
-  steeringRateLimited @29 :Bool;   # if the torque is limited by the rate limiter
   steerFaultTemporary @35 :Bool;   # temporary EPS fault
   steerFaultPermanent @36 :Bool;   # permanent EPS fault
   stockAeb @30 :Bool;
@@ -223,6 +224,7 @@ struct CarState {
   struct CruiseState {
     enabled @0 :Bool;
     speed @1 :Float32;
+    speedCluster @6 :Float32;  # Set speed as shown on instrument cluster
     available @2 :Bool;
     speedOffset @3 :Float32;
     standstill @4 :Bool;
@@ -265,6 +267,7 @@ struct CarState {
 
   errorsDEPRECATED @0 :List(CarEvent.EventName);
   brakeLightsDEPRECATED @19 :Bool;
+  steeringRateLimitedDEPRECATED @29 :Bool;
 }
 
 # ******* radar state @ 20hz *******
@@ -347,9 +350,9 @@ struct CarControl {
 
   struct CruiseControl {
     cancel @0: Bool;
-    override @1: Bool;
-    speedOverride @2: Float32;
-    accelOverride @3: Float32;
+    resume @1: Bool;
+    speedOverrideDEPRECATED @2: Float32;
+    accelOverrideDEPRECATED @3: Float32;
   }
 
   struct HUDControl {
@@ -462,7 +465,6 @@ struct CarParams {
   directAccelControl @30 :Bool; # Does the car have direct accel control or just gas/brake
   stoppingControl @31 :Bool; # Does the car allows full control even at lows speeds when stopping
   stopAccel @60 :Float32; # Required acceleraton to keep vehicle stationary
-  steerRateCost @33 :Float32; # Lateral MPC cost on steering rate
   steerControlType @34 :SteerControlType;
   radarOffCan @35 :Bool; # True when radar objects aren't visible on CAN
   stoppingDecelRate @52 :Float32; # m/s^2/s while trying to stop
@@ -513,6 +515,7 @@ struct CarParams {
     ki @2 :Float32;
     friction @3 :Float32;
     kf @4 :Float32;
+    steeringAngleDeadzoneDeg @5 :Float32;
   }
 
   struct LongitudinalPIDTuning {
@@ -615,6 +618,8 @@ struct CarParams {
     subAddress @3 :UInt8;
     responseAddress @4 :UInt32;
     request @5 :List(Data);
+    brand @6 :Text;
+    bus @7 :UInt8;
   }
 
   enum Ecu {
@@ -655,6 +660,7 @@ struct CarParams {
   }
 
   enableCameraDEPRECATED @4 :Bool;
+  steerRateCostDEPRECATED @33 :Float32;
   isPandaBlackDEPRECATED @39 :Bool;
   hasStockCameraDEPRECATED @57 :Bool;
   safetyParamDEPRECATED @10 :Int16;
