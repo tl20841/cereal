@@ -72,6 +72,7 @@ services = {
   "laneSpeedButton": (False, 0.),
   "dynamicCameraOffset": (False, 0.),
   "modelLongButton": (False, 0.),
+  "accelProfile": (False, 0.),
 
   # debug
   "testJoystick": (False, 0.),

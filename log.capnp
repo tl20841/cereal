@@ -1426,6 +1426,10 @@ struct ModelLongButton {
   enabled @0 :Bool;
 }
 
+struct AccelProfile {
+  status @0 :Text;
+}
+
 struct UploaderState {
   immediateQueueSize @0 :UInt32;
   immediateQueueCount @1 :UInt32;
@@ -1539,6 +1543,7 @@ struct Event {
     laneSpeedButton @88 :LaneSpeedButton;
     dynamicCameraOffset @89 :DynamicCameraOffset;
     modelLongButton @90 :ModelLongButton;
+    accelProfile @91 :AccelProfile;
 
     # navigation
     navInstruction @82 :NavInstruction;
